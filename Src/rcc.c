@@ -20,8 +20,7 @@ void init_RCC(void)
     SystemCoreClockUpdate();
     
 
-    RCC->APB1ENR |= RCC_APB1ENR_PWREN;
-
+//    RCC->APB1ENR |= RCC_APB1ENR_PWREN;
 //    // Включение внешнего тактового генератора;
 //    RCC->CR |= RCC_CR_HSEBYP;
 //    RCC->CR |= RCC_CR_HSEON;
@@ -75,7 +74,7 @@ void init_RCC(void)
     pllcfgr |= RCC_PLLCFGR_PLLSRC_HSI;
     pllcfgr |= 8 << RCC_PLLCFGR_PLLM_Pos;
     pllcfgr |= 64 << RCC_PLLCFGR_PLLN_Pos;
-    pllcfgr |= 0 << RCC_PLLCFGR_PLLP_Pos;
+    pllcfgr |= 1 << RCC_PLLCFGR_PLLP_Pos;
 
     RCC->PLLCFGR = pllcfgr;
 
@@ -89,9 +88,9 @@ void init_RCC(void)
     // Выбор PLL как основного источника тактирования;
     RCC->CFGR |= RCC_CFGR_SW_PLL;
 
-    // Включение  режим over-drive;
-    PWR->CR1 |= (uint32_t)PWR_CR1_ODEN;
-    PWR->CR1 |= (uint32_t)PWR_CR1_ODSWEN;
+//    // Включение  режим over-drive;
+//    PWR->CR1 |= (uint32_t)PWR_CR1_ODEN;
+//    PWR->CR1 |= (uint32_t)PWR_CR1_ODSWEN;
 
 
     SystemCoreClockUpdate();
