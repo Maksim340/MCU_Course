@@ -19,15 +19,22 @@
 #include <stdint.h>
 #include "stm32f7xx.h"
 #include "rcc.h"
+#include "gpio.h"
+#include "timer.h"
+#include "interrupt.h"
 
 int main(void)
 {
-	init_RCC();
+	//Глобальное отключение прерываний
+	__disable_irq();
 
-    RCC->AHB1ENR |= RCC_AHB1ENR_GPIODEN;
-    GPIOD->MODER |= 1 << (1 << 1);
-    int iii = 0;
-    /* Loop forever */
+	init_INTERRUPT();
+	init_RCC();
+	init_GPIO();
+	init_TIMER8();
+
+	__enable_irq();
+
     for(;;)
     {
 
@@ -35,6 +42,8 @@ int main(void)
         {
 
         }
+
+
 
         GPIOD->ODR ^= 1 << 1;
 
