@@ -22,6 +22,13 @@
 #include "gpio.h"
 #include "timer.h"
 #include "interrupt.h"
+#include "adc.h"
+#include "dma.h"
+#include "dac.h"
+#include "dsp.h"
+#include "control.h"
+
+
 
 int main(void)
 {
@@ -31,6 +38,9 @@ int main(void)
 	init_INTERRUPT();
 	init_RCC();
 	init_GPIO();
+	init_DMA();
+	init_ADC();
+	init_DAC();
 	init_TIMER8();
 
 	__enable_irq();
@@ -38,7 +48,7 @@ int main(void)
     for(;;)
     {
 
-        for(int i = 0; i < 10000000; i++)
+        for(int i = 0; i < 100000; i++)
         {
 
         }
@@ -47,8 +57,9 @@ int main(void)
 
         GPIOD->ODR ^= 1 << 1;
 
-
-
+        // Проверяем PB1 (SW1) на ноль
+        if (!(GPIOB->IDR & (1<<1)))
+        	Boost_Measure.count = SET_SHIFTS_MAX_COUNT;
 
 
 

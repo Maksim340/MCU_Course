@@ -11,11 +11,13 @@ void init_TIMER8(void)
 	TIM8->PSC = 0;
 	TIM8->ARR = 1080;
 
-	// Регистр сравнения: 540 (50% скидка)
+	// Регистр сравнения: 540
 	TIM8->CCR1 = TIM8->ARR / 2;
 
 	// Симметричный счет (режим 2)
 	TIM8->CR1 |= TIM_CR1_CMS_1;
+
+
 
 	// Включаем канал сравнения
 	TIM8->CCER |= TIM_CCER_CC1E;
@@ -31,6 +33,9 @@ void init_TIMER8(void)
 
 	//Вкл. прерывания по обновлению
 	TIM8->DIER |= TIM_DIER_UIE;
+
+	// Вкл. генерацию TRGO по событию обновления (update)
+	TIM8->CR2 |= TIM_CR2_MMS_1;
 
 	// Вкл. счет таймера
 	TIM8->CR1 |= TIM_CR1_CEN;
